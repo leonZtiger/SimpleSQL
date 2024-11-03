@@ -1,66 +1,87 @@
 # simpleSQL
 
-simpleSQL is a lightweight, Java-based SQL workbench inspired by MySQL Workbench. This tool provides an intuitive interface for database management, including a customizable EER model editor, project management, SQL querying capabilities, and error handling. 
+**simpleSQL** is a lightweight SQL workbench, built in Java, that offers a streamlined interface for database management. With features like a customizable EER model editor, SQL query console, and project-based organization, simpleSQL makes it easy to design, manage, and query databases.
 
-## Features
+---
 
-- **Database Connection Management**: Easily connect to your MySQL databases and switch between projects.
-- **EER Diagram Editor**: Graphically design database schemas, manage entities, relationships, and visualize your database structure.
-- **SQL Query Execution**: Write and execute SQL queries, view results, and debug errors in real time.
-- **Project-Based Structure**: Save your work as projects, with support for multiple open projects and an easy-to-navigate project manager.
-- **Customizable Settings**: Configure project settings, enable auto-save, and more.
-- **Console Output**: View logs and query results in a built-in console.
+## 🚀 Features
 
-## Getting Started
+- **Database Connection Management** – Easily manage connections and switch between projects.
+- **EER Diagram Editor** – Graphically design and visualize your database schemas.
+- **SQL Query Execution** – Write, execute, and debug SQL queries in real time.
+- **Project-Based Workflow** – Save work as projects, open multiple projects, and navigate easily.
+- **Customizable Settings** – Configure options like auto-save and notifications.
+- **Built-in Console** – View logs and query results directly in the app.
+
+---
+
+## 🛠️ Getting Started
 
 ### Prerequisites
 
-- **Java 17** (simpleSQL is compatible with JDK 17)
-- **MySQL Server** (or a compatible SQL server)
+- **Java 17** – simpleSQL is compatible with JDK 17 and later.
+- **MySQL Server** (or compatible SQL server).
 
 ### Installation
 
-    TODO: add howto
-    
-Using simpleSQL
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/simpleSQL.git
+   cd simpleSQL
 
-    Launch the Application and connect to a database using the Project > Set Connection option.
-    Create New Projects using File > New and switch between projects with tabs.
-    Design Database Schemas by dragging and dropping entities in the EER model editor.
-    Run SQL Queries in the console and view results or errors in real-time.
+    Compile and run the project in your IDE or using:
 
-Project Structure
+    bash
 
-    src/main/java - Contains source code for GUI components, controllers, and models.
-    docs/ - Documentation files for the project.
-    resources/ - External resources (like icons and configuration files).
+    javac -d bin src/**/*.java
+    java -cp bin com.simpleSQL.Main
 
-Contributing
+    Connect to a database via Project > Set Connection.
 
-We welcome contributions! Here’s how you can help:
+💻 Usage Guide
+
+    Launch the application.
+    Establish a database connection - Open properties >  Navigate to Database.
+    Create Projects – Start a new project in File > New and navigate between projects using tabs.
+    Design Schemas in the EER Diagram Editor – drag, drop, and connect entities.
+    Compile your schemas into sql code.
+    View them directly in the SimpleSQL code editor.
+    Run SQL Queries in the built-in console and view results instantly.
+
+📂 Project Structure
+
+    src/main/java – Source code for GUI, controllers, and models.
+    docs/ – Documentation and additional project information.
+    resources/ – External resources (e.g., icons, configuration files).
+
+🤝 Contributing
+
+We welcome contributions! To get started:
 
     Fork the repository.
     Create a branch for your feature or bugfix.
-    Submit a pull request and describe the changes you made.
+    Submit a pull request with a description of your changes.
 
-License
+📜 License
 
-simpleSQL is licensed under the MIT License. See LICENSE for more information.
-Screenshots
+Licensed under the MIT License. See LICENSE for details.
+📸 Screenshots
 
-A screenshot of the EER Diagram Editor.
+    Design schemas visually with the EER Diagram Editor.
 
-A screenshot of the SQL query console.
-Acknowledgements
+    Write and debug SQL queries in the built-in console.
 
-    MySQL Workbench for inspiration.
-    FlatLaf for the modern Java Swing look and feel.
+📝 Acknowledgements
 
-Happy querying!
+    Inspired by MySQL Workbench.
+    Thanks to FlatLaf for the modern Java Swing look and feel.
+
+Happy Querying! 🚀
 
 markdown
 
 
-### Additional Tips
-- Customize links, screenshots, and acknowledgments as needed.
-- Add specific instructions if there are dependencies or additional setup steps.
+### Notes:
+- Adjust commands as needed for your build system.
+- Add links or paths to screenshots and your GitHub repository.
+- Consider including any additional setup details if necessary.
