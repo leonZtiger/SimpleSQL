@@ -1,6 +1,6 @@
-# simpleSQL
+# SimpleSQL
 
-**simpleSQL** is a lightweight SQL workbench, built in Java, that offers a streamlined interface for database management. With features like a customizable EER model editor, SQL query console, and project-based organization, simpleSQL makes it easy to design, manage, and query databases.
+**SimpleSQL** is a lightweight SQL workbench, built in Java, that offers a streamlined interface for database management. With features like a customizable EER model editor, SQL query console, and project-based organization, simpleSQL makes it easy to design, manage, and query databases.
 
 ---
 
@@ -25,28 +25,29 @@
 ### Installation
 
 1. Clone this repository:
-   ```bash
+   ```
    git clone https://github.com/yourusername/simpleSQL.git
    cd simpleSQL
 
-    Compile and run the project in your IDE or using:
-
-    bash
-
+2. Compile and run the project in your IDE
+   ````
     javac -d bin src/**/*.java
     java -cp bin com.simpleSQL.Main
 
-    Connect to a database via Project > Set Connection.
+Or run the precompiled jar
+   
+3. Connect to a database
+   ````
+    Project > Properties > Database > Set Connection.
 
-💻 Usage Guide
-
-    Launch the application.
-    Establish a database connection - Open properties >  Navigate to Database.
-    Create Projects – Start a new project in File > New and navigate between projects using tabs.
-    Design Schemas in the EER Diagram Editor – drag, drop, and connect entities.
-    Compile your schemas into sql code.
-    View them directly in the SimpleSQL code editor.
-    Run SQL Queries in the built-in console and view results instantly.
+## 💻 Usage Guide
+- Launch the application.
+- Establish a database connection - Open properties >  Navigate to Database.
+- Create Projects – Start a new project in File > New and navigate between projects using tabs.
+- Design Schemas in the EER Diagram Editor – drag, drop, and connect entities.
+- Compile your schemas into sql code.
+- View them directly in the SimpleSQL code editor.
+- Run SQL Queries in the built-in console and view results instantly.
 
 📂 Project Structure
 
@@ -65,6 +66,7 @@ We welcome contributions! To get started:
 📜 License
 
 Licensed under the MIT License. See LICENSE for details.
+
 📸 Screenshots
 
     Design schemas visually with the EER Diagram Editor.
@@ -77,11 +79,3 @@ Licensed under the MIT License. See LICENSE for details.
     Thanks to FlatLaf for the modern Java Swing look and feel.
 
 Happy Querying! 🚀
-
-markdown
-
-
-### Notes:
-- Adjust commands as needed for your build system.
-- Add links or paths to screenshots and your GitHub repository.
-- Consider including any additional setup details if necessary.
