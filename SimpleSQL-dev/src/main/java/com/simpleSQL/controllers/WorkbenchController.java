@@ -33,7 +33,7 @@ public class WorkbenchController {
 		this.workbenchView = workbenchView;
 		this.workbenchModel = workbenchModel;
 
-		// Configure all the listeners
+		// Configure all the listeners to there corresponding action
 		menuBarView.addOpenActionListener(e -> {
 			ProjectModel newProjectModel = ProjectModel.openFromFileExplorer();
 			if (newProjectModel == null)
@@ -58,7 +58,7 @@ public class WorkbenchController {
 			ProjectModel newProjectModel = ProjectModel.createByUser();
 			if (newProjectModel == null)
 				return;
-			
+
 			ProjectView projectView = new ProjectView();
 
 			workbenchView.addClosableTab(newProjectModel.getName(), projectView, new ActionListener() {

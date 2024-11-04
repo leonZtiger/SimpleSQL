@@ -102,7 +102,7 @@ public class DrawboardAreaView extends JScrollPane {
 			Graphics2D g2d = (Graphics2D) g;
 		
 			// draw checker board pattern as background
-			g2d.setColor(Color.black);
+			g2d.setColor(Theme.lightBackground);
 			// Draw horizontal lines
 			int hLine = getHeight() / checkerSize;
 			for (int i = 0; i < hLine; i++) {

@@ -13,20 +13,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Appearance  extends OptionsBase{
+import com.simpleSQL.models.PropertiesModel;
+import com.simpleSQL.models.Property;
+import com.simpleSQL.models.TempLocalPreferences;
 
-	public Appearance() {
+public class Appearance extends OptionsBase {
+
+	public Appearance(TempLocalPreferences tempPreferences) {
 		super("Appearance Settings");
 		JPanel theme = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JComboBox<String> themeSelector = new JComboBox<>(new String[] { "Light", "Dark", "System Default" });
+		JComboBox<String> themeSelector = OptionsUtil.createMappedComboBox(tempPreferences, Property.THEME,
+				new String[] { "Light", "Dark", "System Default" });
 		theme.add(new JLabel("Theme:"));
+
 		theme.add(themeSelector);
+		// theme.set
 		content.add(theme);
-		
-		content.add(OptionsUtil.createLabeledInput(new JLabel("Font size"), new JTextField("12")));
-		content.add(OptionsUtil.createLabeledInput(new JLabel("Scale"), new JTextField("100")));
-		content.add(OptionsUtil.createLabeledCheckbox(new JLabel("Show grid lines"), new JCheckBox()));
-		
+
+		content.add(OptionsUtil.createLabeledInput(new JLabel("Font size"),
+				OptionsUtil.createMappedTextField(tempPreferences, Property.FONT_SIZE)));
+		content.add(OptionsUtil.createLabeledInput(new JLabel("Scale"),
+				OptionsUtil.createMappedTextField(tempPreferences, Property.UI_SCALING)));
+		content.add(OptionsUtil.createLabeledCheckbox(new JLabel("Show grid lines"),
+				OptionsUtil.createMappedCheckBox(tempPreferences, Property.SHOW_GRID_LINES)));
+
 	}
 
 }
