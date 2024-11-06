@@ -8,21 +8,29 @@ import java.awt.Graphics2D;
 import java.awt.Label;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.text.TextAction;
 
 public class DrawboardAreaView extends JScrollPane {
 
 	private CheckerPatternJPanel drawArea;
+
 	public DrawboardAreaView() {
 		super();
 
@@ -68,8 +76,58 @@ public class DrawboardAreaView extends JScrollPane {
 		drawArea.addMouseListener(scrollByMouseHandler);
 		drawArea.addMouseMotionListener(scrollByMouseHandler);
 		drawArea.add(UiUtil.createButton("icons/play.png", 500));
+
+		drawArea.setComponentPopupMenu(new PopupMenu(getPopupOptions()));
 	}
-	
+
+	private ArrayList<TextAction> getPopupOptions() {
+		ArrayList<TextAction> actions = new ArrayList<TextAction>();
+
+		actions.add(
+				PopupMenu.createTextAction("Add Entity", KeyEvent.VK_E, ActionEvent.CTRL_MASK, new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Adding...");
+					}
+				}));
+		actions.add(
+				PopupMenu.createTextAction("Add Relation", KeyEvent.VK_R, ActionEvent.CTRL_MASK, new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Adding...");
+					}
+				}));
+		actions.add(
+				PopupMenu.createTextAction("Add Attribute", KeyEvent.VK_A, ActionEvent.CTRL_MASK, new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Adding...");
+					}
+				}));
+		actions.add(
+				PopupMenu.createTextAction("Add Distinct", KeyEvent.VK_D, ActionEvent.CTRL_MASK, new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Adding...");
+					}
+				}));
+
+		actions.add(PopupMenu.createTextAction("Add Overlapping", KeyEvent.VK_O, ActionEvent.CTRL_MASK,
+				new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Adding...");
+					}
+				}));
+
+		return actions;
+	}
+
 	public JPanel getDrawArea() {
 		return drawArea;
 	}
@@ -83,24 +141,24 @@ public class DrawboardAreaView extends JScrollPane {
 			super();
 
 			checkerSize = 50;
-			
+
 			addMouseWheelListener(new MouseWheelListener() {
 
 				@Override
 				public void mouseWheelMoved(MouseWheelEvent e) {
-					
+
 					scale += e.getPreciseWheelRotation();
-					
+
 				}
 			});
 		}
-		
+
 		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 
 			Graphics2D g2d = (Graphics2D) g;
-		
+
 			// draw checker board pattern as background
 			g2d.setColor(Theme.lightBackground);
 			// Draw horizontal lines
@@ -115,8 +173,7 @@ public class DrawboardAreaView extends JScrollPane {
 				int x = checkerSize * i;
 				g2d.drawLine(x, 0, x, getHeight());
 			}
-			
-		
+
 		}
 
 	}

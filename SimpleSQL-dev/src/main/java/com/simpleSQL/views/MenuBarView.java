@@ -97,9 +97,9 @@ public class MenuBarView extends JMenuBar {
 		openItem = createMenuItem("Open", KeyEvent.VK_B, ActionEvent.ALT_MASK);
 		newItem = createMenuItem("New", KeyEvent.VK_L, ActionEvent.ALT_MASK);
 		saveItem = createMenuItem("Save", KeyEvent.VK_S, ActionEvent.CTRL_MASK);
-		saveAsItem = createMenuItem("Save As", -1, 0);
+		saveAsItem = createMenuItem("Save As");
 		saveAllItem = createMenuItem("Save All", KeyEvent.VK_S, ActionEvent.SHIFT_MASK | ActionEvent.CTRL_MASK);
-		exitItem = createMenuItem("Exit", -1, 0);
+		exitItem = createMenuItem("Exit");
 
 		fileMenu.add(openItem);
 		fileMenu.add(newItem);
@@ -132,9 +132,9 @@ public class MenuBarView extends JMenuBar {
 		JMenu projectMenu = new JMenu("Project");
 		projectMenu.setFont(Theme.headFont);
 
-		setConnectionItem = createMenuItem("Set Connection", -1, 0);
-		buildItem = createMenuItem("Build", -1, 0);
-		propertiesItem = createMenuItem("Properties", -1, 0);
+		setConnectionItem = createMenuItem("Set Connection");
+		buildItem = createMenuItem("Build");
+		propertiesItem = createMenuItem("Properties");
 
 		projectMenu.add(setConnectionItem);
 		projectMenu.add(buildItem);
@@ -143,12 +143,19 @@ public class MenuBarView extends JMenuBar {
 		return projectMenu;
 	}
 
-	private JMenuItem createMenuItem(String text, int keyEvent, int modifiers) {
+	private static JMenuItem createMenuItem(String text, int keyEvent, int modifiers) {
 		JMenuItem item = new JMenuItem(text);
 		item.setFont(Theme.bodyFont);
-		if (keyEvent != -1) {
-			item.setAccelerator(KeyStroke.getKeyStroke(keyEvent, modifiers));
-		}
+
+		item.setAccelerator(KeyStroke.getKeyStroke(keyEvent, modifiers));
+
+		return item;
+	}
+
+	private static JMenuItem createMenuItem(String text) {
+		JMenuItem item = new JMenuItem(text);
+		item.setFont(Theme.bodyFont);
+
 		return item;
 	}
 }

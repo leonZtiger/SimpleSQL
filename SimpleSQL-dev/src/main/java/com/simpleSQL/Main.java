@@ -14,8 +14,6 @@ import com.simpleSQL.models.WorkbenchModel;
 import com.simpleSQL.views.ConsoleView;
 import com.simpleSQL.views.MainView;
 import com.simpleSQL.views.MenuBarView;
-import com.simpleSQL.views.ProjectListView;
-import com.simpleSQL.views.ProjectView;
 import com.simpleSQL.views.ToolBarView;
 import com.simpleSQL.views.WorkbenchView;
 

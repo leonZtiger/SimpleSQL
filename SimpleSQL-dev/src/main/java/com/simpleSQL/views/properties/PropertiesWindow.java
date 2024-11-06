@@ -14,26 +14,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public class PropertiesWindow extends JFrame {
-
-	private ProjectModel projectModel;
-	private JList<String> categoryList;
-	private JPanel settingsPanel;
-	private CardLayout cardLayout;
+public class PropertiesWindow extends JDialog {
 
 	public PropertiesWindow(ProjectModel projectModel) {
-		super("Project Properties");
-		this.projectModel = projectModel;
+		super();
+		
+		this.setTitle("Properties");
+		this.setModal(true);
 
 		setSize(new Dimension(600, 500));
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 
 		// Categories for settings (these could be expanded or made dynamic)
 		String[] categories = { "General", "Appearance", "Editor", "Database", "Project" };
-		categoryList = new JList<>(categories);
+		JList<String> categoryList = new JList<>(categories);
 		categoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		// Panel to display selected settings page
+		JPanel settingsPanel = new JPanel();
+		CardLayout cardLayout = new CardLayout();
+		settingsPanel.setLayout(cardLayout);
+		
 		// Add selection listener to switch settings page on category selection
 		categoryList.addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
@@ -41,11 +42,6 @@ public class PropertiesWindow extends JFrame {
 				cardLayout.show(settingsPanel, selectedCategory);
 			}
 		});
-
-		// Panel to display selected settings page
-		settingsPanel = new JPanel();
-		cardLayout = new CardLayout();
-		settingsPanel.setLayout(cardLayout);
 
 		TempLocalPreferences tempPreferences = new TempLocalPreferences();
 
@@ -78,13 +74,13 @@ public class PropertiesWindow extends JFrame {
 			}
 		});
 
-		JButton cancel = new JButton("Cancel");
+		JButton cancel = new JButton("Close");
 
 		cancel.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int i = JOptionPane.showConfirmDialog(null, "Apply changes before?", "", JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(null, "Apply changes before closing?", "", JOptionPane.YES_NO_OPTION);
 
 				if (i == 0)
 					tempPreferences.apply();

@@ -32,7 +32,6 @@ public class OptionsUtil {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setBorder(BorderFactory.createTitledBorder(title));
-
 		panel.add(parentBox);
 
 		JPanel subPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
