@@ -39,17 +39,17 @@ public class ProjectListView extends JPanel {
 
 			@Override
 			public void treeExpanded(TreeExpansionEvent event) {
-				tree.setPreferredSize(new Dimension(200, calcSize()));
+				tree.setPreferredSize(calcSize());
 			}
 
 			@Override
 			public void treeCollapsed(TreeExpansionEvent event) {
-				tree.setPreferredSize(new Dimension(200, calcSize()));
+				tree.setPreferredSize(calcSize());
 			}
 
-			private int calcSize() {
+			private Dimension calcSize() {
 				// ( Font + padding) * rows
-				return (tree.getFont().getSize() + 10) * tree.getRowCount();
+				return new Dimension(tree.getWidth(),(tree.getFont().getSize() + 10) * tree.getRowCount());
 			}
 		});
 

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.KeyStroke;
@@ -75,57 +76,7 @@ public class DrawboardAreaView extends JScrollPane {
 		};
 		drawArea.addMouseListener(scrollByMouseHandler);
 		drawArea.addMouseMotionListener(scrollByMouseHandler);
-		drawArea.add(UiUtil.createButton("icons/play.png", 500));
 
-		drawArea.setComponentPopupMenu(new PopupMenu(getPopupOptions()));
-	}
-
-	private ArrayList<TextAction> getPopupOptions() {
-		ArrayList<TextAction> actions = new ArrayList<TextAction>();
-
-		actions.add(
-				PopupMenu.createTextAction("Add Entity", KeyEvent.VK_E, ActionEvent.CTRL_MASK, new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Adding...");
-					}
-				}));
-		actions.add(
-				PopupMenu.createTextAction("Add Relation", KeyEvent.VK_R, ActionEvent.CTRL_MASK, new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Adding...");
-					}
-				}));
-		actions.add(
-				PopupMenu.createTextAction("Add Attribute", KeyEvent.VK_A, ActionEvent.CTRL_MASK, new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Adding...");
-					}
-				}));
-		actions.add(
-				PopupMenu.createTextAction("Add Distinct", KeyEvent.VK_D, ActionEvent.CTRL_MASK, new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Adding...");
-					}
-				}));
-
-		actions.add(PopupMenu.createTextAction("Add Overlapping", KeyEvent.VK_O, ActionEvent.CTRL_MASK,
-				new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Adding...");
-					}
-				}));
-
-		return actions;
 	}
 
 	public JPanel getDrawArea() {
@@ -139,7 +90,7 @@ public class DrawboardAreaView extends JScrollPane {
 
 		public CheckerPatternJPanel() {
 			super();
-
+			setLayout(null);
 			checkerSize = 50;
 
 			addMouseWheelListener(new MouseWheelListener() {
@@ -177,4 +128,5 @@ public class DrawboardAreaView extends JScrollPane {
 		}
 
 	}
+
 }

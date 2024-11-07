@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -44,12 +45,21 @@ public class WorkbenchController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if (!newProjectModel.isSaved()) {
+						int res = JOptionPane.showConfirmDialog(workbenchView, "Save before closing?");
+						if (res == JOptionPane.YES_OPTION)
+							newProjectModel.save();
+						else if (res == JOptionPane.CANCEL_OPTION)
+							return;
+					}
+
 					workbenchView.remove(projectView);
 					workbenchModel.remove(newProjectModel);
+
 				}
 			});
 
-			ProjectController projectController = new ProjectController(projectView, newProjectModel);
+			new ProjectController(projectView, newProjectModel);
 
 			workbenchModel.addProject(newProjectModel);
 		});
@@ -65,10 +75,19 @@ public class WorkbenchController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if (!newProjectModel.isSaved()) {
+						int res = JOptionPane.showConfirmDialog(workbenchView, "Save before closing?");
+						if (res == JOptionPane.YES_OPTION)
+							newProjectModel.save();
+						else if (res == JOptionPane.CANCEL_OPTION)
+							return;
+					}
+
 					workbenchView.remove(projectView);
 					workbenchModel.remove(newProjectModel);
 				}
 			});
+			new ProjectController(projectView, newProjectModel);
 
 			workbenchModel.addProject(newProjectModel);
 		});
