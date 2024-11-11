@@ -1,17 +1,10 @@
 package com.simpleSQL.views;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,11 +23,12 @@ public class ProjectListView extends JPanel {
 	public ProjectListView() {
 		super();
 
-		tree = testNode();
+		tree = new JTree();
 
 		content = new JScrollPane(tree);
 		content.setViewportView(tree);
-
+		setPreferredSize(new Dimension(200,200));
+		
 		tree.addTreeExpansionListener(new TreeExpansionListener() {
 
 			@Override
@@ -49,7 +43,7 @@ public class ProjectListView extends JPanel {
 
 			private Dimension calcSize() {
 				// ( Font + padding) * rows
-				return new Dimension(tree.getWidth(),(tree.getFont().getSize() + 10) * tree.getRowCount());
+				return new Dimension(tree.getWidth(), (tree.getFont().getSize() + 10) * tree.getRowCount());
 			}
 		});
 
@@ -82,8 +76,19 @@ public class ProjectListView extends JPanel {
 					tree.collapseRow(i);
 			}
 		}));
+		actions.add(PopupMenu.createTextAction("Refresh", new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < tree.getRowCount(); i++)
+					tree.collapseRow(i);
+			}
+		}));
 		return actions;
+	}
+
+	public void setTree(JTree tree) {
+		this.tree = tree;
 	}
 
 	private static JTree testNode() {

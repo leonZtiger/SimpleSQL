@@ -38,5 +38,6 @@ public class WorkbenchView extends JTabbedPane {
 
         // Set the custom tab component, newest tab is at the highest index, ie index at coun.
         setTabComponentAt(getTabCount() - 1, tabComponent);
+        setSelectedIndex(getTabCount() - 1);
     }
 }

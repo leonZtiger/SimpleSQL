@@ -1,5 +1,6 @@
 package com.simpleSQL.views;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -30,12 +31,14 @@ import javax.swing.text.TextAction;
 
 public class DrawboardAreaView extends JScrollPane {
 
-	private CheckerPatternJPanel drawArea;
+	private CheckerBoardPanel drawArea;
+	private Point toAddPosition;
 
 	public DrawboardAreaView() {
 		super();
 
-		drawArea = new CheckerPatternJPanel();
+		toAddPosition = new Point(0, 0);
+		drawArea = new CheckerBoardPanel();
 		drawArea.setPreferredSize(new Dimension(5000, 5000));
 		drawArea.setAutoscrolls(true);
 		// background.setBackground(Theme.darkText);
@@ -49,6 +52,11 @@ public class DrawboardAreaView extends JScrollPane {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				origin = new Point(e.getPoint());
+
+				if (e.getButton() == e.BUTTON3) {
+					toAddPosition = e.getPoint();
+					System.out.println(e.getPoint().x);
+				}
 			}
 
 			@Override
@@ -79,54 +87,12 @@ public class DrawboardAreaView extends JScrollPane {
 
 	}
 
-	public JPanel getDrawArea() {
-		return drawArea;
+	public Point getLastRightClick() {
+		return toAddPosition;
 	}
 
-	public class CheckerPatternJPanel extends JPanel {
-
-		final int checkerSize;
-		float scale = 1;
-
-		public CheckerPatternJPanel() {
-			super();
-			setLayout(null);
-			checkerSize = 50;
-
-			addMouseWheelListener(new MouseWheelListener() {
-
-				@Override
-				public void mouseWheelMoved(MouseWheelEvent e) {
-
-					scale += e.getPreciseWheelRotation();
-
-				}
-			});
-		}
-
-		@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-
-			Graphics2D g2d = (Graphics2D) g;
-
-			// draw checker board pattern as background
-			g2d.setColor(Theme.lightBackground);
-			// Draw horizontal lines
-			int hLine = getHeight() / checkerSize;
-			for (int i = 0; i < hLine; i++) {
-				int y = i * checkerSize;
-				g2d.drawLine(0, y, getWidth(), y);
-			}
-			// Draw vertical lines
-			int vLine = getWidth() / checkerSize;
-			for (int i = 0; i < vLine; i++) {
-				int x = checkerSize * i;
-				g2d.drawLine(x, 0, x, getHeight());
-			}
-
-		}
-
+	public JPanel getDrawArea() {
+		return drawArea;
 	}
 
 }

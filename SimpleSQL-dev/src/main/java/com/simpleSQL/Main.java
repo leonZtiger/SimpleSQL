@@ -1,7 +1,11 @@
 package com.simpleSQL;
 
 import java.awt.Dimension;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -40,9 +44,8 @@ public class Main {
 			// Create views
 			ConsoleView consoleView = new ConsoleView();
 			MenuBarView menuBarView = new MenuBarView();
-			ToolBarView toolBarView = new ToolBarView();
 			WorkbenchView workbenchView = new WorkbenchView();
-			MainView mainView = new MainView(consoleView, menuBarView, toolBarView, workbenchView);
+			MainView mainView = new MainView(consoleView, menuBarView, workbenchView);
 
 			// Set window to 75% of main monitor size
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -51,14 +54,14 @@ public class Main {
 			mainView.pack();
 			mainView.setSize(screenSize);
 			mainView.setVisible(true);
-
+			
 			// Create Models
 			WorkbenchModel workbenchModel = new WorkbenchModel();
 
 			// Create controllers
 			WorkbenchController workbenchController = new WorkbenchController(menuBarView, workbenchView,
 					workbenchModel);
-
+			
 		});
 	}
 }

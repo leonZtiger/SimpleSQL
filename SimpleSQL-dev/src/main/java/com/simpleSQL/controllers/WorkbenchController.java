@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 
 import javax.swing.Icon;
@@ -20,6 +22,7 @@ import com.simpleSQL.models.ProjectModel;
 import com.simpleSQL.models.WorkbenchModel;
 import com.simpleSQL.views.MenuBarView;
 import com.simpleSQL.views.ProjectView;
+import com.simpleSQL.views.WelcomePage;
 import com.simpleSQL.views.WorkbenchView;
 import com.simpleSQL.views.properties.PropertiesWindow;
 
@@ -33,7 +36,9 @@ public class WorkbenchController {
 		this.menuBarView = menuBarView;
 		this.workbenchView = workbenchView;
 		this.workbenchModel = workbenchModel;
-
+		
+		workbenchView.addClosableTab("Welcome!",new WelcomePage(), null);
+		
 		// Configure all the listeners to there corresponding action
 		menuBarView.addOpenActionListener(e -> {
 			ProjectModel newProjectModel = ProjectModel.openFromFileExplorer();
@@ -42,7 +47,7 @@ public class WorkbenchController {
 			ProjectView projectView = new ProjectView();
 
 			workbenchView.addClosableTab(newProjectModel.getName(), projectView, new ActionListener() {
-
+			
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (!newProjectModel.isSaved()) {

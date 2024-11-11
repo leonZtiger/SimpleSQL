@@ -26,10 +26,10 @@ public class UiUtil {
 		ImageIcon icon = new ImageIcon(UiUtil.class.getClassLoader().getResource(imageResourcePath));
 		float aspect = icon.getIconWidth() / (float) icon.getIconHeight();
 		icon.setImage(icon.getImage().getScaledInstance((int) (height * aspect), height, Image.SCALE_SMOOTH));
-
+		
 		btn.setIcon(icon);
 		btn.setSize(icon.getIconWidth(), icon.getIconHeight());
-
+		
 		return btn;
 	}
 

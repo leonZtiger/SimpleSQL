@@ -1,0 +1,96 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 8px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #bdc3c7;
+}
+
+/* Section Container Styling */
+.section-container {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-container h2 {
+    color: #34495e;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.section-container p, .section-container ul {
+    font-size: 1em;
+    color: #555;
+}
+
+.section-container h3 {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+.section-container ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.section-container ul li {
+    margin-bottom: 8px;
+}
+
+/* Link Styling */
+.section-container a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.section-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .section-container {
+        padding: 15px;
+    }
+
+    .section-container h2 {
+        font-size: 1.6em;
+    }
+}
