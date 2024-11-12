@@ -6,11 +6,33 @@
 	<artifactId>SimpleSQL-dev</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<javafx.version>17.0.2</javafx.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.formdev</groupId>
 			<artifactId>flatlaf</artifactId>
 			<version>3.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-swing</artifactId>
+			<version>${javafx.version}</version>
 		</dependency>
 	</dependencies>
 </project>
