@@ -37,7 +37,7 @@ public class DatabaseConnection extends PageContainer {
 				OptionsUtil.createMappedTextField(tempPreferences, Property.DEFAULT_PASSWORD)));
 		// Add input for re-connect settings
 		content.add(
-				OptionsUtil.justifyLeft(OptionsUtil.createPanelWithSubTextFieldBasedOnCheckboc("Connection Settings",
+				OptionsUtil.justifyLeft(OptionsUtil.createPanelWithSubTextFieldBasedOnCheckbox("Connection Settings",
 						OptionsUtil.createMappedCheckBox(tempPreferences, Property.RECONNECT_ON_FAILURE,
 								"Reconnect on failure"),
 						new JLabel("Maxiumum tries"),

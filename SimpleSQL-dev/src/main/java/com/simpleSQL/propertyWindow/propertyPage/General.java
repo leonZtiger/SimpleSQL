@@ -35,7 +35,7 @@ public class General extends PageContainer {
 		
 		saveBox.setText("Auto-Save Interval");
 		
-		JPanel saveOptions = OptionsUtil.createPanelWithSubTextFieldBasedOnCheckboc("Auto Save settings", saveBox,
+		JPanel saveOptions = OptionsUtil.createPanelWithSubTextFieldBasedOnCheckbox("Auto Save settings", saveBox,
 				new JLabel("Save every"), saveField, new JLabel("minute(s)"));
 
 		JCheckBox conBox = OptionsUtil.createMappedCheckBox(tempPreferences, Property.CONFIRM_ON_CLOSE);

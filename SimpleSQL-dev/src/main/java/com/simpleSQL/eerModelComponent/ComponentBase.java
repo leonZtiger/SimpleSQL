@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JViewport;
@@ -11,22 +13,22 @@ import com.simpleSQL.view.project.CheckerBoardPanel;
 
 /**
  * An abstract base class representing a draggable component with text, a
- * selectable state, and optional grid snapping. This component supports
- * customized actions on double-click.
+ * selectable state, and optional grid snapping.
  */
 public abstract class ComponentBase extends JComponent {
 
 	// Text displayed within the component
 	private String text;
-
-	// Action triggered on double-click
-	private Action onDoubleClick;
-
+	// The rendered size
+	protected int width, height;
+	// Anchor points for connections with the component
+	protected ArrayList<AnchorPoint> anchorPoints;
 	// Default colors and styles
 	protected Color color = Color.white;
 	protected boolean selected = false;
 	protected static final Font FONT = new Font("Roboto", Font.BOLD, 18);
 	protected static final int BORDER_WIDTH = 5;
+	protected static final int PADDING = AnchorPoint.SIZE / 2;
 	protected static final int CORNER_ARC = 10;
 
 	// Snap-to-grid setting
@@ -41,14 +43,50 @@ public abstract class ComponentBase extends JComponent {
 	 */
 	public ComponentBase(int width, int height, String text) {
 		super();
-		setText(text);
-		setSize(width, height);
-		setPreferredSize(new Dimension(width, height));
 
+		this.width = width;
+		this.height = height;
+
+		setText(text);
+		// Add padding for AnchorPoints, so they fit inside of the view bound
+		setSize(width + PADDING * 2, height + PADDING * 2);
+		setPreferredSize(getSize());
 		// Add mouse listener and motion listener for dragging functionality
 		MouseAdapter adapter = createMouseAdapter();
 		addMouseListener(adapter);
 		addMouseMotionListener(adapter);
+
+		// Initialize connection points
+		// _____X______
+		// |-----------|
+		// X-Component-X
+		// |_____X_____|
+		//
+		// X = placement
+		anchorPoints = new ArrayList<AnchorPoint>();
+		// Top point
+		anchorPoints.add(createAndAddAnchorPoint(getWidth() / 2 - PADDING, 0));
+		// Right point
+		anchorPoints.add(createAndAddAnchorPoint(getWidth() - PADDING * 2, getHeight() / 2 - PADDING));
+		// Bottom point
+		anchorPoints.add(createAndAddAnchorPoint(getWidth() / 2 - PADDING, getHeight() - PADDING * 2));
+		// Left point
+		anchorPoints.add(createAndAddAnchorPoint(0, getHeight() / 2 - PADDING));
+
+	}
+
+	/***
+	 * Creates a AnchorPoint for this object and also adds it to its JComponent
+	 * children.
+	 * 
+	 * @param x center x coordinate of anchor point
+	 * @param y center y coordinate of anchor point
+	 */
+	private AnchorPoint createAndAddAnchorPoint(int x, int y) {
+
+		AnchorPoint anchor = new AnchorPoint(new Point(x, y));
+		add(anchor);
+		return anchor;
 	}
 
 	/**
@@ -135,7 +173,7 @@ public abstract class ComponentBase extends JComponent {
 	}
 
 	/**
-	 * Abstract method to create a copy of this component.
+	 * Abstract method for creating a copy of this component.
 	 *
 	 * @return a new instance of ComponentBase with the same data
 	 */
@@ -157,12 +195,25 @@ public abstract class ComponentBase extends JComponent {
 		FontMetrics metrics = g.getFontMetrics(FONT);
 		g2d.setFont(FONT);
 		int x = getWidth() / 2 - metrics.stringWidth(text) / 2;
-		int y = getHeight() / 2 + BORDER_WIDTH;
+		int y = height / 2 + PADDING;
 		g2d.drawString(text, x, y);
-
-		// Set stroke width for any child drawing operations
-		g2d.setStroke(new BasicStroke(BORDER_WIDTH));
 	}
+
+	/***
+	 * Returns all the AnchorPoints in this component.
+	 * 
+	 * @return List of all anchors points in this component
+	 */
+	public ArrayList<AnchorPoint> getAnchors() {
+		return anchorPoints;
+	}
+
+	/**
+	 * Abstract method to get the components background color.
+	 * 
+	 * @return color of the component
+	 */
+	public abstract Color getColor();
 
 	/**
 	 * Sets this component to a selected state and repaints it.
@@ -178,15 +229,6 @@ public abstract class ComponentBase extends JComponent {
 	public void setNotSelected() {
 		selected = false;
 		repaint();
-	}
-
-	/**
-	 * Sets the action to be performed on a double-click event.
-	 *
-	 * @param action the action triggered on double-click
-	 */
-	public void setOnDoubleClick(Action action) {
-		onDoubleClick = action;
 	}
 
 	/**

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -12,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.TextAction;
 import com.simpleSQL.database.DatabaseConnection;
+import com.simpleSQL.eerModelComponent.AnchorPoint;
 import com.simpleSQL.eerModelComponent.Attribute;
 import com.simpleSQL.eerModelComponent.ComponentBase;
 import com.simpleSQL.eerModelComponent.Entity;
@@ -25,12 +28,20 @@ import com.simpleSQL.view.PopupMenu;
  */
 public class ProjectModel {
 
+	// Name of this project
 	private String name;
+	// List of the current selected objects
 	private ArrayList<ComponentBase> selectObjectsList;
+	// List of objects that are copied
 	private ArrayList<ComponentBase> copyBoard;
-
+	// List of objects that is in this project
+	private ArrayList<ComponentBase> components;
+	// Field for tracking multiple selections state
 	private boolean multiSelect;
+	// Field for tracking deselections state
 	private boolean deselect;
+	// Field for tracking changes made in the project
+	private PropertyChangeSupport propertyChangeHandler;
 
 	/**
 	 * Constructs a ProjectModel with the specified project name.
@@ -43,6 +54,8 @@ public class ProjectModel {
 		this.name = name;
 		this.selectObjectsList = new ArrayList<>();
 		this.copyBoard = new ArrayList<>();
+		this.propertyChangeHandler = new PropertyChangeSupport(this);
+		this.components = new ArrayList<ComponentBase>();
 	}
 
 	/**
@@ -148,19 +161,22 @@ public class ProjectModel {
 	 * @return a list of components, or null by default
 	 */
 	public ArrayList<ComponentBase> getData() {
-		return null;
+		return components;
 	}
 
 	public void add(Entity entity) {
-		// TODO: Implement add entity functionality
+		components.add(entity);
+		propertyChangeHandler.firePropertyChange(ProjectEvent.ADDED_ENTITY.toString(), null, entity);
 	}
 
 	public void add(Relation relation) {
-		// TODO: Implement add relation functionality
+		components.add(relation);
+		propertyChangeHandler.firePropertyChange(ProjectEvent.ADDED_RELATION.toString(), null, relation);
 	}
 
 	public void add(Attribute attribute) {
-		// TODO: Implement add attribute functionality
+		components.add(attribute);
+		propertyChangeHandler.firePropertyChange(ProjectEvent.ADDED_ATTRIBUTE.toString(), null, attribute);
 	}
 
 	/**
@@ -213,6 +229,8 @@ public class ProjectModel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if (!model.multiSelect && !model.deselect)
+					model.deSelect(obj);
 			}
 
 			@Override
@@ -264,7 +282,6 @@ public class ProjectModel {
 					model.deleteSelected();
 				}
 			});
-
 			obj.setComponentPopupMenu(new PopupMenu(actions));
 			obj.addMouseListener(getComponentMouseListener(model, obj));
 			return obj;
@@ -275,6 +292,11 @@ public class ProjectModel {
 		return null;
 	}
 
+	/***
+	 * Sets the passed component to be selected. Also handles selection logic.
+	 * 
+	 * @param comp component to add to selections
+	 */
 	public void setSelected(ComponentBase comp) {
 		if (selectObjectsList.contains(comp)) {
 			comp.setNotSelected();
@@ -291,35 +313,75 @@ public class ProjectModel {
 		}
 	}
 
+	/***
+	 * Deselects given component.
+	 * 
+	 * @param comp object to be deselected
+	 */
+	public void deSelect(ComponentBase comp) {
+		selectObjectsList.remove(comp);
+		comp.setNotSelected();
+	}
+
+	/***
+	 * Clears all the selected objects
+	 */
 	public void clearSelections() {
 		selectObjectsList.forEach(ComponentBase::setNotSelected);
 		selectObjectsList.clear();
 	}
 
+	/***
+	 * Enables multiple components to be selected at the same time.
+	 */
 	public void setMultiSelectEnabled() {
 		multiSelect = true;
 	}
 
+	/***
+	 * Enables removing multiple selection without removing none selected
+	 * components.
+	 */
 	public void setDeselectEnabled() {
 		deselect = true;
 	}
 
+	/***
+	 * Disables multiple selections.
+	 */
 	public void setMultiSelectDisabled() {
 		multiSelect = false;
 	}
 
+	/***
+	 * Disables deselection without removing none selected.
+	 */
 	public void setDeselectDisabled() {
 		deselect = false;
 	}
 
+	/***
+	 * Deletes and removes selected components.
+	 */
 	public void deleteSelected() {
+		propertyChangeHandler.firePropertyChange(ProjectEvent.REMOVED_COMPONENT.toString(), null, null);
 		selectObjectsList.clear();
 	}
 
+	/***
+	 * Gets all the selected components in this project.
+	 * 
+	 * @return This projects active selection
+	 */
 	public ArrayList<ComponentBase> getSelected() {
 		return selectObjectsList;
 	}
 
+	/***
+	 * Deep copies the passed objects and adds them to this copyboard
+	 * 
+	 * @param selected ArrayList of components to be deep-copied
+	 */
 	public void copy(ArrayList<ComponentBase> selected) {
 		copyBoard.clear();
 		copyBoard.addAll(selected);
@@ -328,8 +390,17 @@ public class ProjectModel {
 		// When pasting later, the copyboard will still be able to past even if the
 		// copied element is deleted.
 		copyBoard = paste();
+
+		propertyChangeHandler.firePropertyChange(ProjectEvent.COPIED_COMPONENT.toString(), null, copyBoard);
+
 	}
 
+	/***
+	 * Returns a copy of the copyboard. All items are shifted down for easier
+	 * viewing.
+	 * 
+	 * @return Copies of the copyboard
+	 */
 	public ArrayList<ComponentBase> paste() {
 		ArrayList<ComponentBase> copies = new ArrayList<ComponentBase>();
 
@@ -339,6 +410,16 @@ public class ProjectModel {
 			copies.add(new_e);
 		});
 
+		propertyChangeHandler.firePropertyChange(ProjectEvent.PASTED_COMPONENT.toString(), null, copies);
+
 		return copies;
+	}
+
+	public void addSelectedAnchor(AnchorPoint a) {
+
+	}
+
+	public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+		this.propertyChangeHandler.addPropertyChangeListener(propertyChangeListener);
 	}
 }
