@@ -1,5 +1,7 @@
 # SimpleSQL
 **Note** This project is under development and is lacking basic functionallity thats promised in description.
+
+
 **SimpleSQL** is a lightweight SQL workbench, built in Java, that offers a streamlined interface for database management. With features like a customizable EER model editor, SQL query console, and project-based organization, simpleSQL makes it easy to design, manage, and query databases.
 
 ---
