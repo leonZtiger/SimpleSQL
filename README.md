@@ -21,8 +21,8 @@
 
 ### Prerequisites
 
-- **Java 17** – simpleSQL is compatible with JDK 17 and later.
-- **MySQL Server** (or compatible SQL server).
+- **Java 17** – simpleSQL is compatible with JDK 17.
+- **MySQL Server**.
 
 ### Installation
 
@@ -71,13 +71,12 @@ Licensed under the MIT License. See LICENSE for details.
 
 📸 Screenshots
 
-    Design schemas visually with the EER Diagram Editor.
-
-    Write and debug SQL queries in the built-in console.
+   ![alt text](https://github.com/leonZtiger/SimpleSQL/blob/main/images/Screenshot%202025-03-07%20125328.png)
+   ![alt text](https://github.com/leonZtiger/SimpleSQL/blob/main/images/Screenshot%202025-03-07%20125717.png)
+   
 
 📝 Acknowledgements
 
     Inspired by MySQL Workbench.
     Thanks to FlatLaf for the modern Java Swing look and feel.
 
-Happy Querying! 🚀
